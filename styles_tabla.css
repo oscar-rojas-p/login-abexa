@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+    }
+.cabecera{
+    padding: 1px;
+    background-color: dodgerblue;
+}
+
+.image{
+    min-width: 50px;
+    border: none;
+}
+
+.container-clock{
+    margin-top: 0px;
+    border: none;
+    text-align: right;
+}
+
+.mid{
+    padding: 15px;
+    font-size: 15px;
+    border-color: dimgrey;
+    text-align: left;
+}
+
+.tabla{
+    text-align: center;
+}

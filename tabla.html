@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abexa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="styles_tabla.css">
+
+</head>
+<body>
+    <div class="cabecera">
+        <div class="image"><img src="logoAbexa2018.png" align="left"></div>   
+        <div class="container-clock" align="rigth">
+         <h1 id="time">00:00:00</h1>   
+            <script>
+                let time = document.getElementById("time");
+                setInterval(function(){
+                    const currentDate = new Date();
+
+                    horas = formatTime(currentDate.getHours());
+                    minutos = formatTime(currentDate.getMinutes());
+                    segundos = formatTime(currentDate.getSeconds());
+                        
+                    time.innerHTML = horas + ":" + minutos + ":" + segundos;
+                },1000)
+
+                function formatTime(value){
+                    return value < 10 ? `0${value}` : value
+                }
+            </script>            
+        </div>
+    </div>
+
+    <div class="mid">
+            
+                <input type="button" value="Nuevo" onClick="nuevoUsuario()">                
+                <i class="fa-solid fa-calendar icon"></i>
+                <input type="date" id="start" name="trip-start" value="2022-11-15" min="2022-01-01" max="2022-12-31">
+                <button><i class="fa-solid fa-arrow-right" onclick="listarUsuarios()"></i></button>
+                <button><i class="fa-solid fa-file-excel icon"></i></button>
+                <a href="">Usuario</a>
+    </div>
+
+    <div class="tabla">
+        <table id="tablaGeneral" class="datos" style="border:10px" border="1" align="center" bgcolor="skyblue">
+            <thead>
+                <tr>
+                    <th>USUARIO</th>
+                    <th>EMPLEADO</th>
+                    <th>TIPO</th>
+                    <th>CREACION</th>
+                    <th>ACCION</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <!-- TODO LO QUE ESTE ACA LO VA A BORRAR -->
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+        <!-- DIALOG AGREGAR NUEVO USUARIO -->
+        <div id="editar" style="display:none" align="center">
+            <h4>AGREGAR NUEVO USUARIO</h4>
+            <div class="contenedor">
+                <div class="input-contenedor">
+                    <input id="usuario" placeholder="Correo usuario">
+                </div>
+                <div class="input-contenedor">
+                    <input  id="nombre" placeholder="Nombre">
+                </div>
+                <div class="input-contenedor">
+                    <input  id="tipo" placeholder="Tipo">
+                </div>
+                <div class="input-contenedor">
+                    <input id="fecha" placeholder="Fecha">
+                </div>
+                <input type="button" value="Guardar" onClick="add()">
+            </div>
+        </div>  
+</body>
+</html>
+
+<script>
+    let datos = [
+                {
+                    USUARIO:"Admin@abexa",
+                    EMPLEADO:"Admin Admin, Admin",
+                    TIPO:"Administrador",
+                    CREACION:"01/05/20"
+                },
+                {
+                    USUARIO:"Bmendoza@Abexa",
+                    EMPLEADO:"Mendoza Gonzales",
+                    TIPO:"Administrador",
+                    CREACION:"05/06/21"
+                },
+                {
+                    USUARIO:"Bromero@Abexa",
+                    EMPLEADO:"Romero Matta, Bri",
+                    TIPO:"Administrador",
+                    CREACION:"04/07/21"
+                },
+                {
+                    USUARIO:"aroga@Abexa",
+                    EMPLEADO:"Romero Galvez, Abel",
+                    TIPO:"Gerencia",
+                    CREACION:"01/05/20"
+                },
+                {
+                    USUARIO:"jmeneses@abexa",
+                    EMPLEADO:"Meneses Castillo, Jose Antonio",
+                    TIPO:"Almacen",
+                    CREACION:"05/04/21"
+                },
+            ];
+    function listarUsuarios(){
+        let tabla = document.getElementById("tablaGeneral")
+        let tbody = tabla.getElementsByTagName("tbody")[0]
+        let tr = ""
+        datos.forEach(data => {
+            tr +=  `<tr>
+                        <td>${data.USUARIO}</td>
+                        <td>${data.EMPLEADO}</td>
+                        <td>${data.TIPO}</td>
+                        <td>${data.CREACION}</td>
+                        <td><button><i class="fa-solid fa-pencil"></i></button><button><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>`
+        })
+        tbody.innerHTML = tr 
+    }
+
+    function nuevoUsuario(){
+            // muestra el formulario oculto
+            document.getElementById("editar").style.display = ""
+    }
+
+    function add(){
+        let valor1 = document.getElementById("usuario").value
+        let valor2 = document.getElementById("nombre").value
+        let valor3 = document.getElementById("tipo").value
+        let valor4 = document.getElementById("fecha").value
+        datos.push(
+                {
+                    USUARIO: valor1,
+                    EMPLEADO: valor2,
+                    TIPO: valor3,
+                    CREACION: valor4
+                }
+        )
+        // ocultar el formulario 
+        document.getElementById("editar").style.display = "none"
+        listarUsuarios()
+    }
+</script>
